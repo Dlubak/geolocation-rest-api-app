@@ -1,1 +1,2 @@
-# geolocation-rest-api-app
+# Geolocation REST API App
+# JWT Authorization
