@@ -32,6 +32,9 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'rest_framework',
+    'user.apps.UserConfig',
+    'core.apps.CoreConfig',
+    'geolocation.apps.GeolocationConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -129,7 +132,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# IP_STACK_SETTINGS = {
-#     'API_KEY': '',
-
-# }
+IP_STACK_SETTINGS = {
+    'API_ACCESS_KEY': '7d9266612dba4165ef77cbcb2dfea7e6',
+    'API_URL': 'http://api.ipstack.com/'
+}
