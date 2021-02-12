@@ -5,7 +5,6 @@ from django.core.exceptions import ValidationError
 from django.core.validators import validate_ipv4_address
 from django.http import Http404
 from rest_framework.permissions import IsAuthenticated
-from 
 from django.shortcuts import get_object_or_404
 from rest_framework import generics, status, views
 from rest_framework.response import Response
@@ -15,7 +14,7 @@ from .serializers import GeoLocationSerializer
 
 # 37.8.230.235
 class IPStackGeoLocationView(views.APIView):
-    authentication_classes = (IsAuthenticated,)
+    permission_classes = [IsAuthenticated]
     
     def call_api(self, request, *args, **kwargs):
         ip_address = request.query_params.get('ip', None)
@@ -37,13 +36,13 @@ class IPStackGeoLocationView(views.APIView):
 class CreateGeoLocationView(generics.CreateAPIView):
     queryset = GeoLocation.objects.all()
     serializer_class = GeoLocationSerializer
-    authentication_classes = (IsAuthenticated,)
+    permission_classes = [IsAuthenticated]
 
 
 class RetrieveDestroyAPIView(generics.RetrieveDestroyAPIView):
     queryset = GeoLocation.objects.all()
     serializer_class = GeoLocationSerializer
-    authentication_classes = (IsAuthenticated,)    
+    permission_classes = [IsAuthenticated]   
     lookup_field = 'ip'
 
     def get_object(self):
@@ -58,6 +57,6 @@ class RetrieveDestroyAPIView(generics.RetrieveDestroyAPIView):
 
 
 class ListGeoLocationView(generics.ListAPIView):
-    authentication_classes = (IsAuthenticated,)
+    permission_classes = [IsAuthenticated]
     queryset = GeoLocation.objects.all()
     serializer_class = GeoLocationSerializer
