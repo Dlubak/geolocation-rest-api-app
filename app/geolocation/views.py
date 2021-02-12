@@ -1,19 +1,23 @@
-import json
 import requests
 from core.models import GeoLocation
 from django.conf import settings
-from django.shortcuts import get_object_or_404, render
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_ipv4_address
+from django.http import Http404
+from django.shortcuts import get_object_or_404
 from rest_framework import generics, status, views
 from rest_framework.response import Response
+
 from .serializers import GeoLocationSerializer
+
 
 # 37.8.230.235
 class IPStackGeoLocationView(views.APIView):
 
     def call_api(self, request, *args, **kwargs):
-        ip_address = request.GET.get('ip', None)
+        ip_address = request.query_params.get('ip', None)
         if not ip_address:
-            return Response(data=None, 
+            return Response(data=None,
                             status=status.HTTP_400_BAD_REQUEST)
 
         url = settings.IP_STACK_SETTINGS.get('API_URL')
@@ -39,8 +43,15 @@ class RetrieveDestroyAPIView(generics.RetrieveDestroyAPIView):
 
     def get_object(self):
         ip_address = self.request.query_params.get('ip', None)
-        print(ip_address, flush=True)
-        queryset = self.filter_queryset(self.get_queryset())
+        try:
+            validate_ipv4_address(ip_address)
+        except ValidationError:
+            raise Http404()
         obj = get_object_or_404(GeoLocation, ip=ip_address)
 
         return obj
+
+
+class ListGeoLocationView(generics.ListAPIView):
+    queryset = GeoLocation.objects.all()
+    serializer_class = GeoLocationSerializer
