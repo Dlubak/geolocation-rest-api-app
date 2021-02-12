@@ -1,6 +1,8 @@
 from rest_framework import serializers
+from core.models import GeoLocation
 
-class GeoLocationSerializer(serializers.Serializer):
-    ip = serializers.CharField()
-    continent_name = serializers.CharField()
-    country_code = serializers.CharField()
+
+class GeoLocationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GeoLocation
+        fields = '__all__'
