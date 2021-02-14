@@ -150,6 +150,3 @@ dmypy.json
 
 # profiling data
 .prof
-
-# Django stuff:
-migrations
