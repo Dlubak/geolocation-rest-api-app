@@ -16,6 +16,8 @@ services:
       - DB_NAME=app
       - DB_USER=postgres
       - DB_PASS=secret
+      - API_ACCESS_KEY=7d9266612dba4165ef77cbcb2dfea7e6
+      - SECRET_KEY=secretkey123
     depends_on: 
       - db
   db:

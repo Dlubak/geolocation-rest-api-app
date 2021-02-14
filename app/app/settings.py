@@ -20,12 +20,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'u)k2i3n*_oz*691jc=+x7mbc_c2hcqb-^z_)nsppp1y=4mk##h'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'changeme')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'appgeolocationapi.herokuapp.com']
 
 
 # Application definition
@@ -49,6 +49,7 @@ REST_FRAMEWORK = {
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -80,7 +81,6 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -90,6 +90,14 @@ DATABASES = {
         'PASSWORD': os.environ.get('DB_PASS'),
     }
 }
+DATABASE_URL = os.environ.get('DATABASE_URL', None)
+if DATABASE_URL:
+    DATABASE_URL = os.environ.get('DATABASE_URL')
+    db_from_env = dj_database_url.config(default=DATABASE_URL, 
+                                         conn_max_age=500, 
+                                         ssl_require=True)
+    DATABASES['default'].update(db_from_env)
+
 
 
 # Password validation
@@ -129,8 +137,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 IP_STACK_SETTINGS = {
-    'API_ACCESS_KEY': '7d9266612dba4165ef77cbcb2dfea7e6',
+    'API_ACCESS_KEY': os.environ.get('API_ACCESS_KEY', 'changeme'),
     'API_URL': 'http://api.ipstack.com/'
 }

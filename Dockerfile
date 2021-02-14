@@ -1,5 +1,6 @@
 FROM python:3.8-alpine
 ENV PYTHONBUFFERED 1
+ENV PYTHONUNBUFFERED 1
 # Install Dependencies
 COPY ./requirements.txt /requirements.txt
 RUN apk add --update --no-cache postgresql-client
