@@ -1,8 +1,12 @@
 from rest_framework import serializers
-from core.models import GeoLocation
+from core.models import GeoLocationData
 
 
-class GeoLocationSerializer(serializers.ModelSerializer):
+class GeoLocationDataSerializer(serializers.ModelSerializer):
     class Meta:
-        model = GeoLocation
+        model = GeoLocationData
         fields = '__all__'
+    
+
+class IpAddressSerializer(serializers.Serializer):
+    ip = serializers.IPAddressField()
