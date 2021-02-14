@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models import JSONField
 
 
-class GeoLocation(models.Model):
+class GeoLocationData(models.Model):
     ip = models.GenericIPAddressField(unique=True)
     continent_name = models.CharField(max_length=255)
     country_code = models.CharField(max_length=255)
