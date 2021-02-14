@@ -4,5 +4,4 @@ from rest_framework import generics
 
 
 class CreateUserView(generics.CreateAPIView):
-    model = User
     serializer_class = UserSerializer
