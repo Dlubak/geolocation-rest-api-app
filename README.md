@@ -1,5 +1,4 @@
 # GeoLocationData APP API
-
 **Create User**
 ----
   Create User
@@ -29,7 +28,7 @@
 
 **JWT Token**
 ----
-  GET JWT TOKEN
+  Get token for user
 
 * **URL**
 
@@ -50,7 +49,7 @@
 
 * **Success Response:**
 
-  * **Code:** 20 <br />
+  * **Code:** 200 <br />
     **Content:** `{ refresh: token, access: token }`
 
 
@@ -66,6 +65,14 @@
 
   `POST`
 
+* **Authorization**
+
+    `JWT`
+
+* **Headers**
+
+    `Authorization: Bearer <token>`
+
 * **Data Params**
 
 ```json
@@ -77,10 +84,11 @@
 * **Success Response:**
 
   * **Code:** 201 <br />
+   **Content:** `{'Geolocation object'}`
 
 **Retrieve Geolocation Entry**
 ----
-  Retrieve Geolocation Entry
+  Retrieve Geolocation Entry from database
 
 * **URL**
 
@@ -90,6 +98,14 @@
 
   `GET`
 
+* **Authorization**
+
+    `JWT`
+
+* **Headers**
+
+    `Authorization: Bearer <token>`
+
 * **Query Params**
 
     `ip=x.x.x.x`
@@ -97,6 +113,7 @@
 * **Success Response:**
 
   * **Code:** 200 <br />
+  **Content:** `{'Geolocation object'}`
 
 
 **Delete Geolocation Entry**
@@ -110,6 +127,14 @@
 * **Method:**
 
   `DELETE`
+
+* **Authorization**
+
+    `JWT`
+
+* **Headers**
+
+    `Authorization: Bearer <token>`
 
 * **Query Params**
 
