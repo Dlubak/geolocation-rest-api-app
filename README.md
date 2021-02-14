@@ -1,9 +1,9 @@
 # GeoLocationData APP API
 **Deploy Application**
 ----
-`docker build .`
-`docker-compose build`
-`docker-compose up`
+1. docker build .
+2. docker-compose build
+3. docker-compose up
 
 
 **Create User**
